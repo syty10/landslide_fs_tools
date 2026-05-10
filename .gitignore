@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Local credentials and secrets
+.env
+.env.*
+src/fs_tools/tools/client_secret.json
+**/client_secret*.json
+**/*secret*.json
+
+# Generated demo outputs
+example/output/
+example/output_demo/
+example/**/temp/
+*.aux.xml
+
+# Optional ArcGIS sidecar metadata/index files can contain local paths
+*.shp.xml
+*.sbn
+*.sbx

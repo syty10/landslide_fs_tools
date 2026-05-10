@@ -1,0 +1,13 @@
+earthengine-api
+geemap
+GDAL
+ipykernel
+jupyter
+matplotlib
+numpy
+openpyxl
+pandas
+rasterio
+scipy
+tqdm
+whitebox
