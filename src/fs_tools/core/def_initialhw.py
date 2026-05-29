@@ -141,7 +141,8 @@ def Cal_water_table(uca, slope, soil_depth, ks, pr, eva, b=30):
     else:
         slope_radians = slope
 
-    eff_infl = 0.8*(pr - eva)
+    # eff_infl = 0.8*(pr - eva)
+    eff_infl = 0.8 * pr
     eff_infl = np.nan_to_num(eff_infl, nan=0, posinf=0, neginf=0)
 
     denominator = ks * b

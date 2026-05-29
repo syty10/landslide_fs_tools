@@ -16,18 +16,21 @@ _EE_INITIALIZED = False
 def initialize_gee(project=None, authenticate=True):
     """Initialize Google Earth Engine only when a download is requested."""
     global _EE_INITIALIZED
+
     if _EE_INITIALIZED:
         return
+
     if authenticate:
         ee.Authenticate()
-    project = project or os.getenv("EE_PROJECT")
-    if project:
-        ee.Initialize(project=project)
-    else:
-        ee.Initialize()
+
+    # 这里直接写 project id
+    project = project or "landslide-495707"
+
+    ee.Initialize(project=project)
+
     _EE_INITIALIZED = True
-"""
-依据提供的shp文件将fs计算所需要的数据下载到本地
+
+"""依据提供的shp文件将fs计算所需要的数据下载到本地
 
 一：地形衍生因子
 dem: 哥白尼数据集中的数字高程模型
@@ -77,13 +80,20 @@ def download_dem(shp_path, output_dir):
     initialize_gee()
     roi = geemap.shp_to_ee(shp_path)
     dem = ee.Image("NASA/NASADEM_HGT/001").select("elevation").clip(roi)
+    # 如果输出文件夹中已经存在 dem.tif 文件，则跳过下载
+    if os.path.exists(os.path.join(output_dir, "dem.tif")):
+        print("dem.tif already exists, skipping download.")
+        return
+    else:
+        print("Downloading dem.tif...")
+        geemap.download_ee_image(
+            image=dem,
+            filename=os.path.join(output_dir, "dem.tif"),
+            region=roi.geometry(),
+            crs="EPSG:4326",
+        )
 
-    geemap.download_ee_image(
-        image = dem,
-        filename = os.path.join(output_dir, "dem.tif"),
-        region = roi.geometry(),
-        crs = "EPSG:4326",
-    )
+
 
 def dem_factors(dem_path, output_dir):
     """

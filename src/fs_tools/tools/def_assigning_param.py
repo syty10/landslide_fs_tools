@@ -2,10 +2,7 @@ import rasterio
 from scipy.stats import kstwo
 from pathlib import Path
 
-try:
-    from .def_resize import resize_clip
-except ImportError:  # Allow running this file directly.
-    from def_resize import resize_clip
+from .def_resize import resize_clip
 import pandas as pd
 import os
 import numpy as np

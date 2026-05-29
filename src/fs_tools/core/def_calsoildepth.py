@@ -64,8 +64,8 @@ def Cal_soilthickness(output_dir):
     core = np.clip(core, 0, None)  # 负数设为0，避免出现复数
     soil_depth = core**e + 2
 
-    # ---- 输出 ----
-    soil_depth = soil_depth.astype(np.float32)
+    # ---- 输出 ---- # 宜良区域经验公式，该区域土很厚
+    soil_depth = soil_depth.astype(np.float32)+ 10
     # 输出路径
     out_soil_depth = os.path.join(output_dir, "soil_depth.tif")
     meta = rasterio.open(os.path.join(fs_path, file_list[0])).meta
